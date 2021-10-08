@@ -1,8 +1,12 @@
 const express = require("express");
 const app = express();
+const cors = require("cors");
 
 const server = require("http").createServer(app);
 const io = require("socket.io")(server);
+
+app.use(cors());
+
 app.get("/", (req, res) => {
   return res.send("Entre na sala com um nome");
 });
@@ -42,6 +46,6 @@ io.on("connection", (socket) => {
   console.log(users);
 });
 
-server.listen(3000, () => {
+server.listen(process.env.PORT || 3000, () => {
   console.log("listening on *:3000");
 });
