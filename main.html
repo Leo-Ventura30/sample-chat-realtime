@@ -36,7 +36,7 @@
     var author = new URLSearchParams(window.location.search).get("name")
     socket.emit("connectUser", author)
     socket.on('connectedUser', (user)=> renderMessage(`${user} entrou na sala`))
-    socket.on('receveidMessage', (msg)=> renderMessage(msg))
+    socket.on('receveidMessage', ({msg,user})=> renderMessage(`${user} disse: ${msg}`))
     $('form').submit((e)=>{
       e.preventDefault();
       var msg = $("input[name=msg]").val()

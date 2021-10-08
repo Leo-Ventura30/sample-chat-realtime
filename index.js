@@ -38,11 +38,12 @@ io.on("connection", (socket) => {
     });
     users.push(user);
     socket.broadcast.emit("connectedUser", user);
+    socket.on("sendMessage", (msg) => {
+      message.push(msg);
+      socket.broadcast.emit("receveidMessage", { msg, user });
+    });
   });
-  socket.on("sendMessage", (msg) => {
-    message.push(msg);
-    socket.broadcast.emit("receveidMessage", msg);
-  });
+
   console.log(users);
 });
 
